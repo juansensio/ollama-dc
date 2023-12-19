@@ -4,11 +4,21 @@ services:
   ollama:
     image: ollama/ollama:latest
     volumes:
-      - ./ollama/models:/ollama/models
+      - ollama:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
   ui:
     image: ghcr.io/ivanfioravanti/chatbot-ollama:main
     ports:
       - 3000:3000
     environment:
-      - DEFAULT_MODEL=llama2
+      - DEFAULT_MODEL=dolphin-mixtral
       - OLLAMA_HOST=http://ollama:11434
+
+volumes:
+  ollama:

@@ -4,14 +4,7 @@ services:
   ollama:
     image: ollama/ollama:latest
     volumes:
-      - ./ollama/models:/ollama/models
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 2
-              capabilities: [gpu]
+      - ollama:/root/.ollama
   ui:
     image: ghcr.io/ivanfioravanti/chatbot-ollama:main
     ports:
