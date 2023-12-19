@@ -6,6 +6,6 @@ stop:
 
 pull:
 	docker-compose exec ollama ollama pull $(model)
-	
-cmd:
+
+ollama:
 	docker-compose exec ollama ollama $(arg)
