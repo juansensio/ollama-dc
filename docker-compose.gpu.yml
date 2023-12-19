@@ -1,0 +1,21 @@
+version: '3.6'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ./ollama/models:/ollama/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2
+              capabilities: [gpu]
+  ui:
+    image: ghcr.io/ivanfioravanti/chatbot-ollama:main
+    ports:
+      - 3000:3000
+    environment:
+      - DEFAULT_MODEL=llama2
+      - OLLAMA_HOST=http://ollama:11434
